@@ -16,6 +16,7 @@
 package com.spencerseidel;
 
 import java.awt.event.KeyEvent;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class JGGlob {
 
@@ -149,7 +150,7 @@ public class JGGlob {
 
   // These are stateful things that any game object
   // can change as game events happen
-  public static int                           direction;
+  public static AtomicInteger                 direction = new AtomicInteger(NOMOVE); // fixes issue #8
   public static boolean                       fire;
   public static int                           playerx;
   public static int                           numBadGuys;

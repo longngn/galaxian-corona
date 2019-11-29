@@ -995,11 +995,11 @@ public class JGalaxian extends JPanel implements KeyListener {
       switch (e.getKeyCode()) {
         case JGGlob.KEYLEFT1:
         case JGGlob.KEYLEFT2:
-          JGGlob.direction=JGGlob.MOVELEFT;
+          JGGlob.direction.set(JGGlob.MOVELEFT);
           break;
         case JGGlob.KEYRIGHT1:
         case JGGlob.KEYRIGHT2:
-          JGGlob.direction=JGGlob.MOVERIGHT;
+          JGGlob.direction.set(JGGlob.MOVERIGHT);
           break;
         case JGGlob.KEYFIRE1:
         case JGGlob.KEYFIRE2:
@@ -1036,11 +1036,15 @@ public class JGalaxian extends JPanel implements KeyListener {
     switch (e.getKeyCode()) {
       case JGGlob.KEYLEFT1:
       case JGGlob.KEYLEFT2:
-        JGGlob.direction=JGGlob.NOMOVE;
+        if(JGGlob.direction.get() == JGGlob.MOVELEFT) { // ony the release of the driving keypress should stop movement
+          JGGlob.direction.set(JGGlob.NOMOVE);
+        }
         break;
       case JGGlob.KEYRIGHT1:
       case JGGlob.KEYRIGHT2:
-        JGGlob.direction=JGGlob.NOMOVE;
+        if(JGGlob.direction.get() == JGGlob.MOVERIGHT) {
+          JGGlob.direction.set(JGGlob.NOMOVE);
+        }
         break;
       case JGGlob.KEYFIRE1:
       case JGGlob.KEYFIRE2:
