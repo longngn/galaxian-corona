@@ -7,3 +7,5 @@ prime
 stage
 snap/.snapcraft
 debian/.debhelper
+target
+deb_install_files/*/*.jar
