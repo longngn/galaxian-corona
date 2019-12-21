@@ -52,6 +52,10 @@ public class JGSoundSystem {
   }
 
   public void stop(String name, int handle) {
+    if (handle == -1) {
+      return;
+    }
+
     if (m_soundMap.containsKey(name)) {
       AudioCue ac = m_soundMap.get(name);
       if (ac.getIsActive(handle)) {
