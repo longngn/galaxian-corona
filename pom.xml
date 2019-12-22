@@ -20,23 +20,51 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
 					<archive>
-						<manifest>
+            <manifest>
+              <addClasspath>true</addClasspath>
 							<mainClass>
 								com.spencerseidel.JGalaxian
-							</mainClass>
+              </mainClass>
+              <classpathPrefix>dep-jars</classpathPrefix>
 						</manifest>
 					</archive>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+              <outputDirectory>${project.build.directory}/dep-jars</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
- 
+
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
+		</dependency>
+    <dependency>
+      <groupId>com.github.philfrei</groupId>
+      <artifactId>AudioCue</artifactId>
+      <version>master-ddd83f721d-1</version>
 		</dependency>
   </dependencies>
 </project>

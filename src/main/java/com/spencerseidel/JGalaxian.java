@@ -46,20 +46,9 @@ public class JGalaxian extends JPanel implements KeyListener {
   ArrayList<ArrayList<JGSprite>> sprites;
   private int currSpriteList;
   JGSprite grid[][];
-  // These are our sounds
-  private AudioClip wavPlayerFired;
-  private AudioClip wavShotBadGuy1;
-  private AudioClip wavShotBadGuy2;
-  private AudioClip wavShotBigBadGuy;
-  private AudioClip wavBadGuyAttacking;
-  private AudioClip wavPlayerExplode;
-  private AudioClip wavStartGame;
-  private AudioClip wavGameOver;
-  private AudioClip wavEnemyFired;
-  private AudioClip wavFreeGuy;
-  private AudioClip wavGetReady;
-  private AudioClip wavQuit;
-  private AudioClip wavMuzak;
+  // A sound system
+  private JGSoundSystem soundSystem;
+  private int muzakHandle;
   // This will be our double-buffer system
   private Graphics dbContext;
   private Image db;
@@ -127,6 +116,10 @@ public class JGalaxian extends JPanel implements KeyListener {
     // TBD: switch to use key bindings
     addKeyListener(this);
 
+    // Sound system
+    soundSystem = new JGSoundSystem();
+    soundSystem.init();
+
     // Load up all the images and sounds we'll need
     loadMedia();
 
@@ -159,7 +152,7 @@ public class JGalaxian extends JPanel implements KeyListener {
       stars[i] = new Point((int)(Math.random()*JGGlob.SCREEN_WIDTH), (int)(Math.random()*JGGlob.SCREEN_HEIGHT));
     }
 
-    wavStartGame.play();
+    soundSystem.play("startgame");
   }
 
   public void start() {
@@ -257,7 +250,7 @@ public class JGalaxian extends JPanel implements KeyListener {
 
     // May need to play a player fired sound
     if (JGGlob.playerFired) {
-      wavPlayerFired.play();
+      soundSystem.play("playerfired");
     }
   }
 
@@ -279,7 +272,7 @@ public class JGalaxian extends JPanel implements KeyListener {
 
       if (numPlayerLives < 0) {
         gameState = JGGlob.JGSTATE_GAMEOVER;
-        wavGameOver.play();
+        soundSystem.play("gameover");
       }
       else {
         gameState = JGGlob.JGSTATE_PLAYING;
@@ -297,7 +290,7 @@ public class JGalaxian extends JPanel implements KeyListener {
         if (gameCount > gameResume) {
           gameState = JGGlob.JGSTATE_CHANGINGLEVEL2;
           gameResume = gameCount + 150;
-          wavGetReady.play();
+          soundSystem.play("getready");
         }
         else {
           animate();
@@ -309,7 +302,7 @@ public class JGalaxian extends JPanel implements KeyListener {
           gameResume = -1;
           initBadGuyGrid();
           gameState = JGGlob.JGSTATE_PLAYING;
-          wavStartGame.play();
+          soundSystem.play("startgame");
         }
         else {
           updateBackground();
@@ -430,7 +423,7 @@ public class JGalaxian extends JPanel implements KeyListener {
                     s2.setAlive(false);
                     explosionPoints.add(new Point(s1.getx(), s1.gety()));
                     explosionPoints.add(new Point(s2.getx(), s2.gety()));
-                    wavPlayerExplode.play();
+                    soundSystem.play("playerexplode");
                     break;
                   case JGGlob.COL_PLAYER_BADGUY:
                     s1.setAlive(false);
@@ -439,18 +432,18 @@ public class JGalaxian extends JPanel implements KeyListener {
                     explosionPoints.add(new Point(s1.getx(), s1.gety()));
 
                     if (s1.type() == JGGlob.HEADBADGUY_TYPE || s2.type() == JGGlob.HEADBADGUY_TYPE) {
-                      wavShotBigBadGuy.play();
+                      soundSystem.play("shotbigbadguy");
                     }
                     else {
                       if (Math.random()*100 > 50) {
-                        wavShotBadGuy1.play();
+                        soundSystem.play("shotbadguy1");
                       }
                       else {
-                        wavShotBadGuy2.play();
+                        soundSystem.play("shotbadguy2");
                       }
                     }
 
-                    wavPlayerExplode.play();
+                    soundSystem.play("playerexplode");
 
                     addToScore = getScoreFromCollision(s1, s2);
                   break;
@@ -460,14 +453,14 @@ public class JGalaxian extends JPanel implements KeyListener {
                     s2.setAlive(false);
                     explosionPoints.add(new Point(s1.getx(), s1.gety()));
                     if (s1.type() == JGGlob.HEADBADGUY_TYPE || s2.type() == JGGlob.HEADBADGUY_TYPE) {
-                      wavShotBigBadGuy.play();
+                      soundSystem.play("shotbigbadguy");
                     }
                     else {
                       if (Math.random()*100 > 50) {
-                        wavShotBadGuy1.play();
+                        soundSystem.play("shotbadguy1");
                       }
                       else {
-                        wavShotBadGuy2.play();
+                        soundSystem.play("shotbadguy2");
                       }
                     }
 
@@ -483,7 +476,7 @@ public class JGalaxian extends JPanel implements KeyListener {
 
                 // Maybe we get a free guy
                 if (score >= nextFreeGuy) {
-                  wavFreeGuy.play();
+                  soundSystem.play("freeguy");
                   nextFreeGuy += JGGlob.FREE_GUY_INTERVAL;
                   numPlayerLives++;
                   displayNumPlayerLives++;
@@ -567,7 +560,7 @@ public class JGalaxian extends JPanel implements KeyListener {
               sprites.get(currSpriteList).add(new JGEMissileSprite(grid[col][row].getx() + JGGlob.EMISSILE_XOFFSET,
                                                                      grid[col][row].gety() + JGGlob.EMISSILE_YOFFSET,
                                                                        JGGlob.EMISSILE_WIDTH, JGGlob.EMISSILE_HEIGHT, sfEMissile));
-              wavEnemyFired.play();
+              soundSystem.play("enemyfired");
             }
 
             boolean doAttack = false;
@@ -585,7 +578,7 @@ public class JGalaxian extends JPanel implements KeyListener {
 
             if (doAttack) {
               if (!s.isAttacking()) {
-                wavBadGuyAttacking.play();
+                soundSystem.play("badguyattack");
 
                 s.attack(dir);
 
@@ -826,19 +819,20 @@ public class JGalaxian extends JPanel implements KeyListener {
     levelFlags[JGGlob.LEVELFLAG_WORTH5] = loadImage(JGGlob.LEVELFLAG_IMAGE_BASE + "1" + JGGlob.IMAGE_EXT);
 
     // Sounds
-    wavPlayerFired = loadSound(JGGlob.SOUNDS_BASE + "/playerfired.wav");
-    wavShotBadGuy1 = loadSound(JGGlob.SOUNDS_BASE + "/shotbadguy1.wav");
-    wavShotBadGuy2 = loadSound(JGGlob.SOUNDS_BASE + "/shotbadguy2.wav");
-    wavShotBigBadGuy = loadSound(JGGlob.SOUNDS_BASE + "/shotbigbadguy.wav");
-    wavBadGuyAttacking = loadSound(JGGlob.SOUNDS_BASE + "/badguyattacking.wav");
-    wavPlayerExplode = loadSound(JGGlob.SOUNDS_BASE + "/playerexplode.wav");
-    wavStartGame = loadSound(JGGlob.SOUNDS_BASE + "/startgame.wav");
-    wavGameOver = loadSound(JGGlob.SOUNDS_BASE + "/gameover.wav");
-    wavEnemyFired = loadSound(JGGlob.SOUNDS_BASE + "/enemyfired.wav");
-    wavFreeGuy = loadSound(JGGlob.SOUNDS_BASE + "/freeguy.wav");
-    wavGetReady = loadSound(JGGlob.SOUNDS_BASE + "/getready.wav");
-    wavQuit = loadSound(JGGlob.SOUNDS_BASE + "/quit.wav");
-    wavMuzak = loadSound(JGGlob.SOUNDS_BASE + "/muzak.wav");
+    soundSystem.loadSound("startgame", JGGlob.SOUNDS_BASE + "/startgame.wav");
+    soundSystem.loadSound("quit", JGGlob.SOUNDS_BASE + "/quit.wav");
+    soundSystem.loadSound("muzak", JGGlob.SOUNDS_BASE + "/muzak.wav");
+    muzakHandle = -1;
+    soundSystem.loadSound("getready", JGGlob.SOUNDS_BASE + "/getready.wav");
+    soundSystem.loadSound("freeguy", JGGlob.SOUNDS_BASE + "/freeguy.wav");
+    soundSystem.loadSound("enemyfired", JGGlob.SOUNDS_BASE + "/enemyfired.wav");
+    soundSystem.loadSound("gameover", JGGlob.SOUNDS_BASE + "/gameover.wav");
+    soundSystem.loadSound("playerexplode", JGGlob.SOUNDS_BASE + "/playerexplode.wav");
+    soundSystem.loadSound("badguyattack", JGGlob.SOUNDS_BASE + "/badguyattacking.wav");
+    soundSystem.loadSound("shotbigbadguy", JGGlob.SOUNDS_BASE + "/shotbigbadguy.wav");
+    soundSystem.loadSound("shotbadguy1", JGGlob.SOUNDS_BASE + "/shotbadguy1.wav");
+    soundSystem.loadSound("shotbadguy2", JGGlob.SOUNDS_BASE + "/shotbadguy2.wav");
+    soundSystem.loadSound("playerfired", JGGlob.SOUNDS_BASE + "/playerfired.wav");
   }
 
   // Create all the explosion images
@@ -1006,12 +1000,12 @@ public class JGalaxian extends JPanel implements KeyListener {
           JGGlob.fire=true;
           if (gameState == JGGlob.JGSTATE_PAUSED) {
             gameState = JGGlob.JGSTATE_PLAYING;
-            wavMuzak.stop();
+            soundSystem.stop("muzak", muzakHandle);
           }
           break;
         case JGGlob.KEYQUIT:
-          wavMuzak.stop();
-          wavQuit.play();
+          soundSystem.stop("muzak", muzakHandle);
+          soundSystem.play("quit");
           try {
             Thread.sleep(1000);
           } catch(Exception ex) {}
@@ -1020,11 +1014,11 @@ public class JGalaxian extends JPanel implements KeyListener {
         case JGGlob.KEYPAUSE:
           if (gameState == JGGlob.JGSTATE_PLAYING) {
             gameState = JGGlob.JGSTATE_PAUSED;
-            wavMuzak.play();
+            muzakHandle = soundSystem.play("muzak");
           }
           else if (gameState == JGGlob.JGSTATE_PAUSED) {
             gameState = JGGlob.JGSTATE_PLAYING;
-            wavMuzak.stop();
+            soundSystem.stop("muzak", muzakHandle);
           }
           break;
       }
@@ -1115,7 +1109,7 @@ public class JGalaxian extends JPanel implements KeyListener {
     enemyFireFrequency = JGGlob.INITIAL_ENEMY_FIRE_FREQUENCY;
 
     // Play sounds
-    wavStartGame.play();
+    soundSystem.play("startgame");
   }
 
   private void initBadGuyGrid() {
