@@ -1,5 +1,5 @@
 name: jgalaxian
-version: "0.0.1"
+version: "1.1.0"
 summary: A Java Galaxian clone
 description: |
   JGalaxian is a Java-based Galaxian clone.
@@ -29,4 +29,7 @@ parts:
     stage-packages:
       - openjdk-8-jdk
       - libpulse0
+      - x11-utils
+    organize:
+      ${SNAPCRAFT_PART_BUILD}/target/dep-jars/AudioCue-master-ddd83f721d-1.jar: jar/dep-jars/AudioCue-master-ddd83f721d-1.jar
 

@@ -42,7 +42,7 @@ public class JGSoundSystem {
   public void loadSound(String name, String path) {
     URL url = this.getClass().getClassLoader().getResource(path);
     try {
-      AudioCue newCue = AudioCue.makeStereoCue(url, 10);
+      AudioCue newCue = AudioCue.makeStereoCue(url, 5);
       newCue.open(m_audioMixer);
       m_soundMap.put(name, newCue);
     }
