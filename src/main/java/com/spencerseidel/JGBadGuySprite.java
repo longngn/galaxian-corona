@@ -99,6 +99,11 @@ public class JGBadGuySprite extends JGSprite {
     locRect.y = mastery + JGGlob.BADGUY_HORZ_SPACE;
   }
 
+  public void slowDown() {
+    maxDescentSpeed = (int)((double)maxDescentSpeed * 0.5);
+    maxLateralSpeed = (int)((double)maxLateralSpeed * 0.5);
+  }
+
   // This is the "up and over" manuver
   private void attackBegin() {
     int deltaFace = (attackDirection == JGGlob.BADGUY_ATTACK_LEFT ? -1 : 1);

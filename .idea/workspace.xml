@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="89d79360-8e52-4e9c-a653-598c3cbd3626" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spencerseidel/MissileType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/antibiotic0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria13.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria15.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria17.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria18.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria19.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/bacteria9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/vaccine0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus13.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus15.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus17.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus18.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus19.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/virus9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/art/vitaminc0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spencerseidel/JGBadGuySprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spencerseidel/JGBadGuySprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spencerseidel/JGGlob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spencerseidel/JGGlob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spencerseidel/JGPMissileSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spencerseidel/JGPMissileSprite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spencerseidel/JGalaxian.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spencerseidel/JGalaxian.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1Zd2iz6eq9oMiyq4hYiDUQNrMyY" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="abbreviatePackageNames" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/art" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/art" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="89d79360-8e52-4e9c-a653-598c3cbd3626" name="Default Changelist" comment="" />
+      <created>1585154782055</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585154782055</updated>
+      <workItem from="1585154787815" duration="5538000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="519" y="325" key="com.intellij.ide.util.TipDialog" timestamp="1585154787856">
+      <screen x="0" y="23" width="1680" height="940" />
+    </state>
+    <state x="519" y="325" key="com.intellij.ide.util.TipDialog/0.23.1680.940@0.23.1680.940" timestamp="1585154787856" />
+    <state x="506" y="250" width="667" height="486" key="find.popup" timestamp="1585160510183">
+      <screen x="0" y="23" width="1680" height="940" />
+    </state>
+    <state x="506" y="250" width="667" height="486" key="find.popup/0.23.1680.940@0.23.1680.940" timestamp="1585160510183" />
+  </component>
+</project>

@@ -33,8 +33,10 @@ public class JGGlob {
   public static final int                     KEYLEFT2 = KeyEvent.VK_J;
   public static final int                     KEYRIGHT1 = KeyEvent.VK_RIGHT;
   public static final int                     KEYRIGHT2 = KeyEvent.VK_K;
-  public static final int                     KEYFIRE1 = KeyEvent.VK_SPACE;
-  public static final int                     KEYFIRE2 = KeyEvent.VK_A;
+  public static final int                     KEYFIRE1 = KeyEvent.VK_A;
+  public static final int                     KEYFIRE2 = KeyEvent.VK_S;
+  public static final int                     KEYFIRE3 = KeyEvent.VK_D;
+  public static final int                     KEYFIRE4 = KeyEvent.VK_F;
   public static final int                     KEYQUIT = KeyEvent.VK_Q;
   public static final int                     KEYPAUSE = KeyEvent.VK_P;
 
@@ -47,39 +49,42 @@ public class JGGlob {
   public static final String                  IMAGE_EXT = ".png";
 
   // This is static information about each kind of Sprite
-  public static final String                  PLAYER_IMAGE_BASE = "art/player";
+  public static final String                  PLAYER_IMAGE_BASE = "art/doctor";
   public static final int                     PLAYER_IMAGES_TO_LOAD = 1;
   public static       int                     PLAYER_WIDTH = 26; // Scalable
   public static       int                     PLAYER_HEIGHT = 40; // Scalable
   public static       int                     PLAYER_Y = 438; // Scalable
   public static final int                     PLAYER_TYPE = -1;
 
-  public static final String                  PMISSILE_IMAGE_BASE = "art/pmissile";
+  public static final String                  PMISSILE_IMAGE_ANTIBIOTIC = "art/antibiotic";
+  public static final String                  PMISSILE_IMAGE_VITAMINC = "art/vitaminc";
+  public static final String                  PMISSILE_IMAGE_LEUKOCYTE = "art/leukocyte";
+  public static final String                  PMISSILE_IMAGE_VACCINE = "art/vaccine";
   public static final int                     PMISSILE_IMAGES_TO_LOAD = 1;
   public static       int                     PMISSILE_WIDTH = 4; // Scalable
   public static       int                     PMISSILE_HEIGHT = 8; // Scalable
   public static       int                     PMISSILE_XOFFSET = 11; // Scalable
   public static final int                     PMISSILE_TYPE = -2;
 
-  public static final String                  BADGUY1_IMAGE_BASE = "art/bg1";
+  public static final String                  BADGUY1_IMAGE_BASE = "art/bacteria";
   public static final int                     BADGUY1_IMAGES_TO_LOAD = 20;
   public static       int                     BADGUY1_WIDTH = 28; // Scalable
   public static       int                     BADGUY1_HEIGHT = 28; // Scalable
   public static final int                     BADGUY1_TYPE = 2;
 
-  public static final String                  BADGUY2_IMAGE_BASE = "art/bg2";
+  public static final String                  BADGUY2_IMAGE_BASE = "art/virus";
   public static final int                     BADGUY2_IMAGES_TO_LOAD = 20;
   public static       int                     BADGUY2_WIDTH = 28; // Scalable
   public static       int                     BADGUY2_HEIGHT = 28; // Scalable
   public static final int                     BADGUY2_TYPE = 3;
 
-  public static final String                  BADGUY3_IMAGE_BASE = "art/bg3";
+  public static final String                  BADGUY3_IMAGE_BASE = "art/virus";
   public static final int                     BADGUY3_IMAGES_TO_LOAD = 20;
   public static       int                     BADGUY3_WIDTH = 28; // Scalable
   public static       int                     BADGUY3_HEIGHT = 28; // Scalable
   public static final int                     BADGUY3_TYPE = 4;
 
-  public static final String                  HEADBADGUY_IMAGE_BASE = "art/g";
+  public static final String                  HEADBADGUY_IMAGE_BASE = "art/virus";
   public static final int                     HEADBADGUY_IMAGES_TO_LOAD = 20;
   public static       int                     HEADBADGUY_WIDTH = 28; // Scalable
   public static       int                     HEADBADGUY_HEIGHT = 28; // Scalable
@@ -152,6 +157,7 @@ public class JGGlob {
   // can change as game events happen
   public static AtomicInteger                 direction = new AtomicInteger(NOMOVE); // fixes issue #8
   public static boolean                       fire;
+  public static MissileType                   fireType = MissileType.ANTIBIOTIC;
   public static int                           playerx;
   public static int                           numBadGuys;
   public static boolean                       loadAnotherMissile;

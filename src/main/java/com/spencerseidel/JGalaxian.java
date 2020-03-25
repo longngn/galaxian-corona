@@ -25,7 +25,11 @@ public class JGalaxian extends JPanel implements KeyListener {
 
   // These will store all the sprite faces.
   private Image sfPlayer[];
-  private Image sfPMissile[];
+  private Image sfLeukocyte[];
+  private Image sfVaccine[];
+  private Image sfVitaminC[];
+  private Image sfAntibiotic[];
+
   private Image sfEMissile[];
   private Image sfBadGuy1[];
   private Image sfBadGuy2[];
@@ -254,6 +258,20 @@ public class JGalaxian extends JPanel implements KeyListener {
     }
   }
 
+  private Image[] getMissleSf() {
+    switch (JGGlob.fireType) {
+      case VACCINE:
+        return sfVaccine;
+      case VITAMINC:
+        return sfVitaminC;
+      case LEUKOCYTE:
+        return sfLeukocyte;
+      case ANTIBIOTIC:
+      default:
+        return sfAntibiotic;
+    }
+  }
+
   // When in player died state
   private void processPlayerDied() {
     if (gameCount > gameResume && !attacking) {
@@ -264,7 +282,7 @@ public class JGalaxian extends JPanel implements KeyListener {
                                                             JGGlob.PLAYER_WIDTH, JGGlob.PLAYER_HEIGHT, sfPlayer));
       // Add a missile
       sprites.get(currSpriteList).add(new JGPMissileSprite((JGGlob.SCREEN_WIDTH - JGGlob.PMISSILE_WIDTH)/2 + JGGlob.PMISSILE_XOFFSET, JGGlob.PLAYER_Y,
-                                                              JGGlob.PMISSILE_WIDTH, JGGlob.PMISSILE_HEIGHT, sfPMissile));
+                                                              JGGlob.PMISSILE_WIDTH, JGGlob.PMISSILE_HEIGHT, getMissleSf()));
 
       JGGlob.loadAnotherMissile = false;
       gameResume = -1;
@@ -402,7 +420,7 @@ public class JGalaxian extends JPanel implements KeyListener {
     // Collision check our Sprites
     ArrayList<Point> explosionPoints = new ArrayList<Point>(100);
     ArrayList<Point> score300 = new ArrayList<Point>(100);
-
+    ArrayList<JGBadGuySprite> willAdd = new ArrayList();
     for (JGSprite s1 : sprites.get(currSpriteList)) {
       // Only consider Sprites that aren't type 0 or dead
       if (s1.type() != 0 && s1.alive()) {
@@ -449,8 +467,40 @@ public class JGalaxian extends JPanel implements KeyListener {
                   break;
 
                   case JGGlob.COL_PMISSILE_BADGUY:
-                    s1.setAlive(false);
-                    s2.setAlive(false);
+//                    s1.setAlive(false);
+//                    s2.setAlive(false);
+                    JGBadGuySprite badguy;
+                    JGPMissileSprite missile;
+                    if (s1.type() == JGGlob.PMISSILE_TYPE) {
+                      missile = (JGPMissileSprite)s1;
+                      badguy = (JGBadGuySprite)s2;
+                    } else {
+                      missile = (JGPMissileSprite)s2;
+                      badguy = (JGBadGuySprite)s1;
+                    }
+                    boolean isBacteria = badguy.type() == JGGlob.BADGUY1_TYPE;
+
+                    if (isBacteria) {
+                      if (missile.mtype == MissileType.ANTIBIOTIC || missile.mtype == MissileType.LEUKOCYTE) {
+                        badguy.setAlive(false);
+                      } else if (missile.mtype == MissileType.VITAMINC) {
+                        badguy.slowDown();
+                      }
+                    } else {
+                      if (missile.mtype == MissileType.VACCINE) {
+                        badguy.setAlive(false);
+                      } else if (missile.mtype == MissileType.LEUKOCYTE) {
+                        JGBadGuySprite s = new JGBadGuySprite(badguy.getRow(), badguy.getCol(), badguy.getx(), badguy.gety(), JGGlob.BADGUY1_WIDTH, JGGlob.BADGUY1_HEIGHT, badguy.faces, badguy.type(),
+                                maxEnemyDescentSpeed, maxEnemyLateralSpeed);
+                        willAdd.add(s);
+                      } else if (missile.mtype == MissileType.VITAMINC) {
+                        badguy.slowDown();
+                      }
+                    }
+
+                    missile.setAlive(false);
+
+                    // From original game
                     explosionPoints.add(new Point(s1.getx(), s1.gety()));
                     if (s1.type() == JGGlob.HEADBADGUY_TYPE || s2.type() == JGGlob.HEADBADGUY_TYPE) {
                       soundSystem.play("shotbigbadguy");
@@ -510,6 +560,7 @@ public class JGalaxian extends JPanel implements KeyListener {
     // Switch sprite lists
     currSpriteList = nextSpriteList;
 
+    sprites.get(currSpriteList).addAll(willAdd);
     // May need to make an explosion
     for (Point p : explosionPoints) {
       sprites.get(currSpriteList).add(new JGExplosionPieceSprite((int)p.getX(), (int)p.getY(), 5, 5, sfEx5));
@@ -540,7 +591,7 @@ public class JGalaxian extends JPanel implements KeyListener {
     // We may need to create another missile
     if (JGGlob.loadAnotherMissile) {
       sprites.get(currSpriteList).add(new JGPMissileSprite(JGGlob.playerx + JGGlob.PMISSILE_XOFFSET, JGGlob.PLAYER_Y,
-                                                             JGGlob.PMISSILE_WIDTH, JGGlob.PMISSILE_HEIGHT, sfPMissile));
+                                                             JGGlob.PMISSILE_WIDTH, JGGlob.PMISSILE_HEIGHT, getMissleSf()));
       // Update the bulletin board
       JGGlob.loadAnotherMissile = false;
     }
@@ -802,7 +853,11 @@ public class JGalaxian extends JPanel implements KeyListener {
 
     // Graphics
     sfPlayer = loadImages(JGGlob.PLAYER_IMAGES_TO_LOAD, JGGlob.PLAYER_IMAGE_BASE);
-    sfPMissile = loadImages(JGGlob.PMISSILE_IMAGES_TO_LOAD, JGGlob.PMISSILE_IMAGE_BASE);
+    sfAntibiotic = loadImages(JGGlob.PMISSILE_IMAGES_TO_LOAD, JGGlob.PMISSILE_IMAGE_ANTIBIOTIC);
+    sfVitaminC = loadImages(JGGlob.PMISSILE_IMAGES_TO_LOAD, JGGlob.PMISSILE_IMAGE_VITAMINC);
+    sfVaccine = loadImages(JGGlob.PMISSILE_IMAGES_TO_LOAD, JGGlob.PMISSILE_IMAGE_VACCINE);
+    sfLeukocyte = loadImages(JGGlob.PMISSILE_IMAGES_TO_LOAD, JGGlob.PMISSILE_IMAGE_LEUKOCYTE);
+
     sfEMissile = loadImages(JGGlob.EMISSILE_IMAGES_TO_LOAD, JGGlob.EMISSILE_IMAGE_BASE);
     sfBadGuy1 = loadImages(JGGlob.BADGUY1_IMAGES_TO_LOAD, JGGlob.BADGUY1_IMAGE_BASE);
     sfBadGuy2 = loadImages(JGGlob.BADGUY2_IMAGES_TO_LOAD, JGGlob.BADGUY2_IMAGE_BASE);
@@ -996,8 +1051,32 @@ public class JGalaxian extends JPanel implements KeyListener {
           JGGlob.direction.set(JGGlob.MOVERIGHT);
           break;
         case JGGlob.KEYFIRE1:
+          JGGlob.fire=true;
+          JGGlob.fireType=MissileType.LEUKOCYTE;
+          if (gameState == JGGlob.JGSTATE_PAUSED) {
+            gameState = JGGlob.JGSTATE_PLAYING;
+            soundSystem.stop("muzak", muzakHandle);
+          }
+          break;
         case JGGlob.KEYFIRE2:
           JGGlob.fire=true;
+          JGGlob.fireType=MissileType.VACCINE;
+          if (gameState == JGGlob.JGSTATE_PAUSED) {
+            gameState = JGGlob.JGSTATE_PLAYING;
+            soundSystem.stop("muzak", muzakHandle);
+          }
+          break;
+        case JGGlob.KEYFIRE3:
+          JGGlob.fire=true;
+          JGGlob.fireType=MissileType.VITAMINC;
+          if (gameState == JGGlob.JGSTATE_PAUSED) {
+            gameState = JGGlob.JGSTATE_PLAYING;
+            soundSystem.stop("muzak", muzakHandle);
+          }
+          break;
+        case JGGlob.KEYFIRE4:
+          JGGlob.fire=true;
+          JGGlob.fireType=MissileType.ANTIBIOTIC;
           if (gameState == JGGlob.JGSTATE_PAUSED) {
             gameState = JGGlob.JGSTATE_PLAYING;
             soundSystem.stop("muzak", muzakHandle);
@@ -1068,7 +1147,7 @@ public class JGalaxian extends JPanel implements KeyListener {
                                                          JGGlob.PLAYER_WIDTH, JGGlob.PLAYER_HEIGHT, sfPlayer));
     // Add a missile
     sprites.get(currSpriteList).add(new JGPMissileSprite((JGGlob.SCREEN_WIDTH - JGGlob.PMISSILE_WIDTH)/2 + JGGlob.PMISSILE_XOFFSET, JGGlob.PLAYER_Y,
-                                                           JGGlob.PMISSILE_WIDTH, JGGlob.PMISSILE_HEIGHT, sfPMissile));
+                                                           JGGlob.PMISSILE_WIDTH, JGGlob.PMISSILE_HEIGHT, getMissleSf()));
 
     // Update the bulletin board variables
     JGGlob.loadAnotherMissile = false;

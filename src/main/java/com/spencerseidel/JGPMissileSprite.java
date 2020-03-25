@@ -14,6 +14,8 @@ public class JGPMissileSprite extends JGSprite {
 
 	private boolean missileFired;
 
+	public MissileType mtype = MissileType.ANTIBIOTIC;
+
 	public JGPMissileSprite(int x, int y, int w, int h, Image f[]) {
 		super(x, y, w, h, 0, f);	
 		missileFired = false;
@@ -23,6 +25,7 @@ public class JGPMissileSprite extends JGSprite {
 		if (JGGlob.fire == true && missileFired == false) {
 			missileFired = true;
 			type = JGGlob.PMISSILE_TYPE;
+			mtype = JGGlob.fireType;
 			
 			// This is for the benefit of the applet, which will
 			// reset it after the frame is animated
